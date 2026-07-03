@@ -1,0 +1,318 @@
+# =================================================================
+#
+# Authors: Tom Kralidis <tomkralidis@gmail.com>
+#
+# Copyright (c) 2025 Tom Kralidis
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# =================================================================
+
+common_postgis: &postgis_provider
+    type: feature
+    name: PostgreSQL
+    data:
+        host: localhost
+        dbname: gis
+        user: postgres
+        password: "Petsre971$$$"
+        port: 5432
+
+common_extent: &extent
+    spatial:
+        bbox: [4.0, 50.5, 7.5, 53.6]
+        crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+
+server:
+    bind:
+        host: 0.0.0.0
+        port: 5000
+    url: http://localhost:5000
+    mimetype: application/json; charset=UTF-8
+    encoding: utf-8
+    gzip: false
+    languages:
+        # First language is the default language
+        - en-US
+        - fr-CA
+    cors: true
+    cors_origins:
+      - http://127.0.0.1:5500
+    pretty_print: true
+    limits:
+        default_items: 20
+        max_items: 1000
+    # templates:
+      # path: /path/to/Jinja2/templates
+      # static: /path/to/static/folder # css/js/img
+    map:
+        url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+#    manager:
+#        name: TinyDB
+#        connection: /tmp/pygeoapi-process-manager.db
+#        output_dir: /tmp/
+    # ogc_schemas_location: /opt/schemas.opengis.net
+    admin: false # enable admin api
+
+logging:
+    level: ERROR
+    #logfile: /tmp/pygeoapi.log
+
+metadata:
+    identification:
+        title:
+            en: pygeoapi default instance
+            fr: instance par défaut de pygeoapi
+        description:
+            en: pygeoapi provides an API to geospatial data
+            fr: pygeoapi fournit une API aux données géospatiales
+        keywords:
+            en:
+                - geospatial
+                - data
+                - api
+            fr:
+                - géospatiale
+                - données
+                - api
+        keywords_type: theme
+        terms_of_service: https://creativecommons.org/licenses/by/4.0/
+        url: https://example.org
+    license:
+        name: CC-BY 4.0 license
+        url: https://creativecommons.org/licenses/by/4.0/
+    provider:
+        name: Organization Name
+        url: https://pygeoapi.io
+    contact:
+        name: Lastname, Firstname
+        position: Position Title
+        address: Mailing Address
+        city: City
+        stateorprovince: Administrative Area
+        postalcode: Zip or Postal Code
+        country: Country
+        phone: +xx-xxx-xxx-xxxx
+        fax: +xx-xxx-xxx-xxxx
+        email: you@example.org
+        url: Contact URL
+        hours: Mo-Fr 08:00-17:00
+        instructions: During hours of service. Off on weekends.
+        role: pointOfContact
+
+resources:
+
+    roads:
+        type: collection
+        title: Roads
+        id: roads
+        description: Road Network for Noord-Holland from PostGIS database
+
+        keywords:
+            - roads
+            - transport
+            - noord-holland
+
+        extents: *extent
+
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: roads_flat
+              geom_field: geom
+              id_field: osm_id
+
+    admin:
+        type: collection
+        title: Administrative Boundaries
+        id: admin
+        description: Administrative boundaries for Noord-Holland from PostGIS database
+
+        keywords:
+            - admin
+            - boundaries
+            - noord-holland
+
+        extents: *extent
+
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: admin
+              geom_field: geom
+              id_field: osm_id
+
+    buildings:
+        type: collection
+        title: Buildings
+        id: buildings
+        description: Building footprints
+        keywords: [buildings, structures]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: buildings_flat
+              geom_field: geom
+              id_field: osm_id
+
+    healthcare:
+        type: collection
+        title: Healthcare Facilities
+        id: healthcare
+        description: Healthcare-related features
+        keywords: [healthcare, hospitals]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: healthcare_flat
+              geom_field: geom
+              id_field: osm_id
+
+    schools:
+        type: collection
+        title: Schools
+        id: schools
+        description: Educational facilities
+        keywords: [schools, education]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: schools_flat
+              geom_field: geom
+              id_field: osm_id
+
+    waterways:
+        type: collection
+        title: Waterways
+        id: waterways
+        description: Rivers, canals, and water bodies
+        keywords: [water, rivers]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: waterways_flat
+              geom_field: geom
+              id_field: osm_id
+
+    greenspaces:
+        type: collection
+        title: Green Spaces
+        id: greenspaces
+        description: Parks, forests and recreational areas
+        keywords: [green, parks]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: greenspaces_flat
+              geom_field: geom
+              id_field: osm_id
+
+
+    schools_near_waterways:
+        type: collection
+        title: "Query: Schools near waterways"
+        id: schools_near_waterways
+        description: Schools within 200m of waterways
+        keywords: [schools, near, waterways]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: schools_near_waterways
+              geom_field: geom
+              id_field: osm_id
+
+    schools_in_amsterdam_city:
+        type: collection
+        title: "Query: Schools in Amsterdam"
+        id: schools_in_amsterdam_city
+        description: Schools located within Amsterdam city
+        keywords: [schools, amsterdam]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: schools_in_amsterdam_city
+              geom_field: geom
+              id_field: osm_id
+
+    healthcare_facilities_in_buildings:
+        type: collection
+        title: "Query: Healthcare facilities inside buildings"
+        id: healthcare_facilities_in_buildings
+        description: Healthcare facilities located within buildings
+        keywords: [hospital, clinic, healthcare,building]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: healthcare_facilities_in_buildings
+              geom_field: geom
+              id_field: osm_id
+
+    roads_through_greenspaces:
+        type: collection
+        title: "Query: Roads intersecting green spaces"
+        id: roads_through_greenspaces
+        description: Roads that intersect with parks and green areas
+        keywords: [roads, greenspaces, road, greenspace, through]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: roads_through_greenspaces
+              geom_field: geom
+              id_field: osm_id
+
+    waterways_crossing_admin_boundaries:
+        type: collection
+        title: "Query: Waterways crossing administrative boundaries"
+        id: waterways_crossing_admin_boundaries
+        description: Waterways that cross administrative boundaries
+        keywords: [waterways, admin boundary, crossing]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: waterways_crossing_admin_boundaries
+              geom_field: geom
+              id_field: osm_id
+
+    greenspaces_in_amsterdam_city:
+        type: collection
+        title: "Query: Green spaces in Amsterdam"
+        id: greenspaces_in_amsterdam_city
+        description: Parks and green areas within Amsterdam city
+        keywords: [greenspaces, parks, forests, amsterdam]
+        extents: *extent
+        providers:
+            - <<: *postgis_provider
+              schema: public
+              table: greenspaces_in_amsterdam_city
+              geom_field: geom
+              id_field: osm_id
