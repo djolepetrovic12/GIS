@@ -1,0 +1,1 @@
+Projekat 2 i 3 ne koriste pygeoapi-config.yml kao konfiguracioni fajl vec example-config.yml.
