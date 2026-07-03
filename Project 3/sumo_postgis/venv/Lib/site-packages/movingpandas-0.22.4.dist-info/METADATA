@@ -1,0 +1,36 @@
+Metadata-Version: 2.4
+Name: movingpandas
+Version: 0.22.4
+Summary: MovingPandas provides trajectory data structures and functions for handling movement data based on Pandas, GeoPandas, and more. Visit movingpandas.org for details.
+Home-page: https://github.com/movingpandas/movingpandas
+Author: Anita Graser
+Author-email: anitagraser@gmx.at
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: matplotlib
+Requires-Dist: geopandas
+Requires-Dist: geopy
+Provides-Extra: smoothing
+Requires-Dist: stonesoup; extra == "smoothing"
+Provides-Extra: viz
+Requires-Dist: hvplot; extra == "viz"
+Requires-Dist: bokeh; extra == "viz"
+Requires-Dist: cartopy; extra == "viz"
+Requires-Dist: geoviews; extra == "viz"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+Trajectory data structures and functions for handling movement data

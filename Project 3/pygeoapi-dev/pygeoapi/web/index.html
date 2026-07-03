@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GIS Project</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+ <div class="filterDiv"> 
+   <div class="filters">
+     <div class="filterElement">
+       <h3>Roads Maxspeed Filter</h3>
+     </div>
+     <div class="filterElement">
+       <input type="number" id="speedInput" value="50" min="1">
+     
+       <button id="runSpeedFilter">
+           Filter Roads
+       </button>
+     </div>
+   
+ 
+   </div>
+ 
+   <div class="filters">
+    <div class="filterElement">
+      <h3>Schools Near Waterways</h3> 
+    </div>
+
+    <div class="filterElement">
+      <input type="number" id="distanceInput" value="100" min="1" >
+  
+      <button id="runSpatialQuery">
+          Filter Schools
+      </button>
+    </div>
+ 
+   </div>
+ </div>
+
+  <div id="map"></div>
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#map {
+  height: 100vh;
+  width: 100%;
+}
+
+.legend {
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+}
+
+.legend h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.legend-box {
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.legend {
+  transform: scale(0.85);
+  transform-origin: bottom right;
+}
+
+.leaflet-control-layers {
+  transform: scale(0.85);
+  transform-origin: top right;
+}
