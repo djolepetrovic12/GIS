@@ -5,7 +5,7 @@ import geopandas as gpd
 
 DB_NAME = "sumo_db"
 DB_USER = "postgres" 
-DB_PASS = "Petsre971$$$"
+DB_PASS = ""
 DB_HOST = "localhost" 
 DB_PORT = "5432" 
 

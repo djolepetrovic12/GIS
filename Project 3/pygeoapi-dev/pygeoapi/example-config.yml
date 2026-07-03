@@ -34,7 +34,7 @@ common_postgis: &postgis_provider
         host: localhost
         dbname: gis
         user: postgres
-        password: "Petsre971$$$"
+        password: ""
         port: 5432
 
 common_extent: &extent
